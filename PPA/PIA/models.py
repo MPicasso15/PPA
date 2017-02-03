@@ -20,6 +20,7 @@ class Project(models.Model):
 
 
 class Indicator(models.Model):
+	number = models.IntegerField(null=True)
 	description = models.TextField()
 	expected = models.IntegerField()
 	initial_date = models.DateField()
@@ -29,13 +30,11 @@ class Indicator(models.Model):
 	responsible = models.ForeignKey(User, on_delete = models.CASCADE)
 
 	def __str__(self):
-		return "Proyecto: " + self.project + " ,Responsable: " 
-		+ self.responsible + " ,Descripción: " + self.description
+		return self.description
 
 
 class Action(models.Model):
 	description = models.TextField()
-	number = models.IntegerField()
 	project = models.ForeignKey(Project, on_delete = models.CASCADE)
 
 	def __str__(self):
@@ -48,5 +47,5 @@ class Review(models.Model):
 	indicator = models.ForeignKey(Indicator, on_delete=models.CASCADE)
 
 	def __str__(self):
-		return self.reached
+		return str(self.date) + "( Alcanzado: " + str(self.reached) + ")"
 
